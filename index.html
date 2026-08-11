@@ -18,9 +18,13 @@
             <img src="bnight-putih.png" alt="Logo" width="100">
         </div>
 
-<button class="menu-toggle" id="menu-toggle">
-       <span>☰</span>
-    </button>
+<button class="menu-toggle" id="menu-toggle" aria-label="Open menu" aria-expanded="false">
+    <span class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+    </span>
+</button>
 
         <div class="menu" id="menu">
             <a href="#home">Home</a>
@@ -130,13 +134,38 @@
 </section>
 
     
-   <section id="portfolio">
+<section id="portfolio">
 
     <h2>My Portfolio</h2>
 
+    <!-- PORTFOLIO FILTER -->
+    <div class="portfolio-filter">
+
+        <button class="filter-btn active" data-filter="all">
+            All
+        </button>
+
+        <button class="filter-btn" data-filter="logo">
+            Logo
+        </button>
+
+        <button class="filter-btn" data-filter="packaging">
+            Packaging
+        </button>
+
+        <button class="filter-btn" data-filter="social-media">
+            Social Media
+        </button>
+
+        <button class="filter-btn" data-filter="illustration">
+            Illustration
+        </button>
+
+    </div>
+
     <div class="portfolio-card">
 
-        <div class="project">
+        <div class="project" data-category="branding">
         <h3>Branding</h3>
         <div class="project-image">
         <img src="images/branding.jpg">
@@ -151,7 +180,7 @@
 
         </div>
 
-        <div class="project">
+        <div class="project" data-category="packaging">
         <h3>Packaging</h3>
         <div class="project-image">
         <img src="images/packaging.jpg">
@@ -165,7 +194,7 @@
             <p>Packaging design project.</p>
         </div>
 
-        <div class="project">
+        <div class="project" data-category="social-media">
         <h3>Social Media</h3>
         <div class="project-image">
         <img src="images/sosmed-ig.jpg">
@@ -178,7 +207,7 @@
             <p>Social media visual design.</p>
         </div>
 
-        <div class="project">
+        <div class="project" data-category="illustration">
         <h3>Illustration</h3>
         <div class="project-image">
         <img src="images/illustration.jpg">
