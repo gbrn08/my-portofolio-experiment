@@ -76,13 +76,29 @@ nav {
     margin: 0 0 30px;
 }
 
-#home button {
+#home button,
+#home #view-work {
+    display: inline-block;
+
     padding: 14px 28px;
 
-    border: none;
+    border: 1px solid #555;
     border-radius: 8px;
 
+    background: transparent;
+    color: white;
+
     cursor: pointer;
+
+    text-decoration: none;
+
+    transition: 0.3s ease;
+}
+
+#home button:hover,
+#home #view-work:hover {
+    background: white;
+    color: #111;
 }
 
 
@@ -308,6 +324,109 @@ nav {
 
 .project-image:hover .project-overlay {
     opacity: 1;
+}
+
+/* =========================
+   PORTFOLIO VIEW MORE
+   ========================= */
+
+.portfolio-more {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+
+    width: max-content;
+    min-width: 230px;
+
+    gap: 10px;
+
+    margin: 55px auto 0;
+    padding: 0;
+
+    border: 0;
+    background: transparent;
+
+    color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+
+    cursor: pointer;
+}
+
+.portfolio-more.visible {
+    display: flex;
+}
+
+.portfolio-more-text {
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.portfolio-more-arrow {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 130px;
+    height: 45px;
+    margin-top: 5px;
+}
+
+.portfolio-more-arrow::before,
+.portfolio-more-arrow::after {
+    content: "";
+    position: absolute;
+
+    top: 8px;
+
+    width: 50%;
+    height: 2px;
+
+    background: #fff;
+}
+
+.portfolio-more-arrow::before {
+    left: 0;
+    transform-origin: right center;
+    transform: rotate(17deg);
+}
+
+.portfolio-more-arrow::after {
+    right: 0;
+    transform-origin: left center;
+    transform: rotate(-17deg);
+}
+
+.portfolio-more:hover .portfolio-more-text {
+    transform: translateY(3px);
+}
+
+.portfolio-more:hover .portfolio-more-arrow {
+    transform: translateY(4px);
+}
+
+.portfolio-more.expanded .portfolio-more-arrow {
+    transform: rotate(180deg);
+}
+
+.portfolio-more.expanded:hover .portfolio-more-arrow {
+    transform: rotate(180deg) translateY(4px);
+}
+
+.project.portfolio-hidden {
+    display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .portfolio-more,
+    .portfolio-more-text,
+    .portfolio-more-arrow,
+    .portfolio-more-arrow::before,
+    .portfolio-more-arrow::after {
+        transition: none;
+    }
 }
 
 /* =========================

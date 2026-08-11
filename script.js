@@ -120,95 +120,343 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // =========================
-// PORTFOLIO FILTER
+// PORTFOLIO + VIEW MORE
 // =========================
 
 const filterButtons = document.querySelectorAll(".filter-btn");
 const portfolioProjects = document.querySelectorAll(".project");
 
+const portfolioMore = document.getElementById("portfolio-more");
+const portfolioMoreText = portfolioMore
+    ? portfolioMore.querySelector(".portfolio-more-text")
+    : null;
+
+const INITIAL_VISIBLE = 4;
+
+let portfolioExpanded = false;
+let portfolioAnimationTimers = [];
+
+
+// =========================
+// CLEAR TIMER
+// =========================
+
+function clearPortfolioTimers() {
+
+    portfolioAnimationTimers.forEach(function (timer) {
+        clearTimeout(timer);
+    });
+
+    portfolioAnimationTimers = [];
+}
+
+
+// =========================
+// SHOW PROJECT
+// =========================
+
+function showProject(project, animate = true) {
+
+    project.classList.remove("portfolio-hidden");
+
+    project.style.display = "flex";
+
+    project.classList.remove("filter-hide");
+    project.classList.remove("filter-show");
+
+
+    if (animate) {
+
+        void project.offsetWidth;
+
+        project.classList.add("filter-show");
+
+    }
+
+}
+
+
+// =========================
+// HIDE PROJECT
+// =========================
+
+function hideProject(project, animate = true) {
+
+    project.classList.remove("filter-show");
+
+
+    if (animate && project.style.display !== "none") {
+
+        project.classList.add("filter-hide");
+
+
+        const timer = setTimeout(function () {
+
+            if (project.classList.contains("filter-hide")) {
+
+                project.style.display = "none";
+
+                project.classList.add("portfolio-hidden");
+
+            }
+
+        }, 450);
+
+
+        portfolioAnimationTimers.push(timer);
+
+    }
+
+    else {
+
+        project.style.display = "none";
+
+        project.classList.add("portfolio-hidden");
+
+        project.classList.remove("filter-hide");
+
+    }
+
+}
+
+
+// =========================
+// UPDATE VIEW MORE BUTTON
+// =========================
+
+function updateViewMoreButton(hiddenCount) {
+
+    if (!portfolioMore) return;
+
+
+    portfolioMore.classList.toggle(
+        "visible",
+        hiddenCount > 0
+    );
+
+
+    portfolioMore.classList.toggle(
+        "expanded",
+        portfolioExpanded
+    );
+
+
+    portfolioMore.setAttribute(
+        "aria-expanded",
+        portfolioExpanded ? "true" : "false"
+    );
+
+
+    if (portfolioMoreText) {
+
+        portfolioMoreText.textContent =
+            portfolioExpanded
+                ? "VIEW LESS"
+                : "VIEW MORE";
+
+    }
+
+}
+
+
+// =========================
+// UPDATE PORTFOLIO
+// =========================
+
+function updatePortfolio(animate = true) {
+
+    clearPortfolioTimers();
+
+
+    const activeButton =
+        document.querySelector(".filter-btn.active");
+
+
+    const filter =
+        activeButton
+            ? activeButton.getAttribute("data-filter")
+            : "all";
+
+
+    const matchingProjects =
+        Array.from(portfolioProjects).filter(function (project) {
+
+            const category =
+                project.getAttribute("data-category");
+
+
+            return (
+                filter === "all" ||
+                category === filter ||
+                (
+                    filter === "logo" &&
+                    category === "branding"
+                )
+            );
+
+        });
+
+
+    const visibleProjects =
+        portfolioExpanded
+            ? matchingProjects
+            : matchingProjects.slice(
+                0,
+                INITIAL_VISIBLE
+            );
+
+
+    portfolioProjects.forEach(function (project) {
+
+        if (visibleProjects.includes(project)) {
+
+            showProject(
+                project,
+                animate
+            );
+
+        }
+
+        else {
+
+            hideProject(
+                project,
+                animate
+            );
+
+        }
+
+    });
+
+
+    updateViewMoreButton(
+        matchingProjects.length -
+        visibleProjects.length
+    );
+
+}
+
+
+// =========================
+// FILTER BUTTON
+// =========================
 
 filterButtons.forEach(function (button) {
 
     button.addEventListener("click", function () {
 
-        const filter = button.getAttribute("data-filter");
-
-
-        // =========================
-        // ACTIVE BUTTON
-        // =========================
 
         filterButtons.forEach(function (btn) {
+
             btn.classList.remove("active");
+
         });
+
 
         button.classList.add("active");
 
 
-        // =========================
-        // FILTER PROJECT
-        // =========================
-
-        portfolioProjects.forEach(function (project) {
-
-            const category = project.getAttribute("data-category");
-
-            const shouldShow =
-                filter === "all" ||
-                category === filter;
+        // Kembali ke tampilan awal
+        portfolioExpanded = false;
 
 
-            if (shouldShow) {
+        updatePortfolio(true);
 
-                // Pastikan card bisa terlihat
-                project.style.display = "flex";
+    });
 
-                // Reset animation
-                project.classList.remove("filter-hide");
-                project.classList.remove("filter-show");
-
-                // Trigger browser reflow
-                void project.offsetWidth;
-
-                // Jalankan animation
-                project.classList.add("filter-show");
-
-            } else {
-
-                // Animasi keluar
-                project.classList.remove("filter-show");
-                project.classList.add("filter-hide");
+});
 
 
-                // Setelah animasi selesai,
-                // benar-benar hilangkan dari layout
+// =========================
+// VIEW MORE / VIEW LESS
+// =========================
+
+if (portfolioMore) {
+
+    portfolioMore.addEventListener(
+        "click",
+        function () {
+
+
+            portfolioExpanded =
+                !portfolioExpanded;
+
+
+            updatePortfolio(true);
+
+
+            // Ketika VIEW MORE dibuka
+            if (portfolioExpanded) {
+
                 setTimeout(function () {
 
-                    if (
-                        project.classList.contains("filter-hide")
-                    ) {
-                        project.style.display = "none";
+                    const portfolio =
+                        document.getElementById(
+                            "portfolio"
+                        );
+
+
+                    if (portfolio) {
+
+                        const bottom =
+                            portfolio.getBoundingClientRect()
+                            .bottom;
+
+
+                        if (
+                            bottom >
+                            window.innerHeight
+                        ) {
+
+                            window.scrollBy({
+
+                                top: Math.min(
+                                    180,
+                                    bottom -
+                                    window.innerHeight
+                                ),
+
+                                behavior: "smooth"
+
+                            });
+
+                        }
+
                     }
 
-                }, 400);
+                }, 180);
 
             }
 
-        });
+            // Ketika VIEW LESS
+            else {
 
-    });
+                document
+                    .getElementById("portfolio")
+                    .scrollIntoView({
 
-});
+                        behavior: "smooth",
 
-const viewWork = document.getElementById("view-work");
+                        block: "start"
 
-viewWork.addEventListener("click", function () {
+                    });
 
-    document.getElementById("portfolio").scrollIntoView({
-        behavior: "smooth"
-    });
+            }
 
-});
+        }
+    );
+
+}
+
+
+// =========================
+// INITIAL PORTFOLIO
+// =========================
+
+// Hanya 4 portfolio pertama
+// yang ditampilkan saat awal.
+
+updatePortfolio(false);
 
 
 const modal = document.getElementById("project-modal");
