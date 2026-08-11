@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WEBSITE BELAJAR</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">
+            <img src="bnight-putih.png" alt="Logo" width="100">
+        </div>
+
+<button class="menu-toggle" id="menu-toggle">
+       <span>☰</span>
+    </button>
+
+        <div class="menu" id="menu">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+    <section id="home">
+
+    <p class="hero-small">HELLO, I'M</p>
+
+    <h1>Gibran</h1>
+
+    <p class="hero-description">
+        Graphic Designer based in Jakarta.
+    </p>
+
+    <p class="hero-skills">
+        Branding • Illustration • Visual Design
+    </p>
+
+        <button id="view-work">View My Work</button>
+
+    </section>
+
+
+    <!-- ABOUT -->
+<section id="about">
+
+    <div class="about-container">
+
+        <div class="about-image">
+            <img src="images/profile.jpg" alt="Gibran">
+        </div>
+
+        <div class="about-content">
+
+            <p class="section-label">ABOUT ME</p>
+
+            <h2>Graphic Designer</h2>
+
+            <p>
+                I am Gibran, a graphic designer based in Jakarta
+                with experience in branding, illustration,
+                packaging and visual design.
+            </p>
+
+            <p>
+                I enjoy creating visual identities and designs
+                that are both functional and visually engaging.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- SKILL -->
+<section id="skills">
+
+    <div class="skills-container">
+
+        <p class="section-label">MY SKILLS</p>
+
+        <h2>What I Do</h2>
+
+        <div class="skills-grid">
+
+            <div class="skill">
+                <h3>Branding</h3>
+                <p>Logo design and visual identity.</p>
+            </div>
+
+            <div class="skill">
+                <h3>Packaging</h3>
+                <p>Creative packaging and product design.</p>
+            </div>
+
+            <div class="skill">
+                <h3>Illustration</h3>
+                <p>Digital illustration and visual artwork.</p>
+            </div>
+
+            <div class="skill">
+                <h3>Social Media</h3>
+                <p>Visual content for social media platforms.</p>
+            </div>
+
+            <div class="skill">
+                <h3>Typography</h3>
+                <p>Typography and custom lettering.</p>
+            </div>
+
+            <div class="skill">
+                <h3>Layout</h3>
+                <p>Poster, banner and editorial layouts.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+    
+   <section id="portfolio">
+
+    <h2>My Portfolio</h2>
+
+    <div class="portfolio-card">
+
+        <div class="project">
+        <h3>Branding</h3>
+        <div class="project-image">
+        <img src="images/branding.jpg">
+
+        <div class="project-overlay">
+            <span>View Project</span>
+        </div>
+
+        </div>
+
+         <p>Logo and visual identity design.</p>
+
+        </div>
+
+        <div class="project">
+        <h3>Packaging</h3>
+        <div class="project-image">
+        <img src="images/packaging.jpg">
+
+        <div class="project-overlay">
+            <span>View Project</span>
+        </div>
+
+        </div>
+
+            <p>Packaging design project.</p>
+        </div>
+
+        <div class="project">
+        <h3>Social Media</h3>
+        <div class="project-image">
+        <img src="images/sosmed-ig.jpg">
+
+        <div class="project-overlay">
+            <span>View Project</span>
+        </div>
+
+        </div>
+            <p>Social media visual design.</p>
+        </div>
+
+        <div class="project">
+        <h3>Illustration</h3>
+        <div class="project-image">
+        <img src="images/illustration.jpg">
+
+        <div class="project-overlay">
+            <span>View Project</span>
+        </div>
+
+        </div>
+            <p>Digital illustration project.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+    <!-- CONTACT -->
+<section id="contact">
+
+    <div class="contact-container">
+
+        <p class="section-label">CONTACT</p>
+
+        <h2>Let's Work Together</h2>
+
+        <p>
+            Have a project in mind?
+            Feel free to get in touch with me.
+        </p>
+
+        <div class="contact-links">
+
+            <a href="mailto:youremail@example.com">
+                Email Me
+            </a>
+
+            <a href="https://www.instagram.com/bnight8" target="_blank">
+                Instagram
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<div id="project-modal" class="modal">
+
+    <div class="modal-content">
+
+        <button class="modal-close" id="modal-close">×</button>
+        <img id="modal-image" src="" alt="Project Image">
+
+        <h2 id="modal-title"></h2>
+
+        <p id="modal-description"></p>
+
+        <p id="modal-client"></p>
+
+        <p id="modal-year"></p>
+
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Gibran. All Rights Reserved.</p>
+</footer>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
